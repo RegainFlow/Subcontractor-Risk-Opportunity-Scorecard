@@ -1,105 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RegainFlow - Subcontractor Scorecard</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!-- Tailwind Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                DEFAULT: '#00d6cb',
-                light: '#00ffff',
-                dark: '#00a89e',
-                alpha15: 'rgba(0, 214, 203, 0.15)',
-                alpha25: 'rgba(0, 214, 203, 0.25)',
-              },
-              bg: {
-                main: '#121213',
-                secondary: '#1a1a1a',
-                tertiary: '#242424',
-              },
-              text: {
-                primary: '#ffffff',
-                secondary: '#a6a6a6',
-              },
-              glass: {
-                border: 'rgba(255, 255, 255, 0.1)',
-                borderAccent: 'rgba(0, 214, 203, 0.2)',
-              }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RegainFlow | Subcontractor Scorecard</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#00d6cb',
+              light: '#00ffff',
+              dark: '#00a89e',
+              alpha15: 'rgba(0, 214, 203, 0.15)',
+              alpha25: 'rgba(0, 214, 203, 0.25)',
             },
-            fontFamily: {
-              primary: ['"Exo 2"', 'sans-serif'],
-              logo: ['"Montserrat"', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'monospace'],
+            bg: {
+              main: '#121213',
+              secondary: '#1a1a1a',
+              tertiary: '#242424',
             },
-            boxShadow: {
-              'glow-subtle': '0 0 10px rgba(0, 214, 203, 0.2)',
-              'glow-hover': '0 0 25px rgba(0, 214, 203, 0.4)',
+            text: {
+              primary: '#ffffff',
+              secondary: '#a6a6a6',
             },
-            animation: {
-              'fade-in': 'fadeIn 0.5s ease-out',
-              'slide-up': 'slideUp 0.5s ease-out',
-            },
-            keyframes: {
-              fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
-              },
-              slideUp: {
-                '0%': { opacity: '0', transform: 'translateY(20px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
+            glass: {
+              border: 'rgba(255, 255, 255, 0.1)',
+              borderAccent: 'rgba(0, 214, 203, 0.2)',
             }
           },
+          fontFamily: {
+            primary: ['"Exo 2"', 'sans-serif'],
+            logo: ['"Montserrat"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'glow-subtle': '0 0 10px rgba(0, 214, 203, 0.2)',
+            'glow-hover': '0 0 25px rgba(0, 214, 203, 0.4)',
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out',
+            'slide-up': 'slideUp 0.5s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
         },
-      }
-    </script>
-    <style>
-      body {
-        background-color: #121213;
-        color: #ffffff;
-      }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #121213; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #242424; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #00d6cb; 
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react-icons/": "https://aistudiocdn.com/react-icons@^5.5.0/",
-    "recharts": "https://aistudiocdn.com/recharts@^3.5.0"
-  }
-}
-</script>
+      },
+    }
+  </script>
+  <style>
+    body {
+      background-color: #121213;
+      color: #ffffff;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #121213;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #242424;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00d6cb;
+    }
+  </style>
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

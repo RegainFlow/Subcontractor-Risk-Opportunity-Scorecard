@@ -4,6 +4,9 @@ import { Dashboard } from './components/Dashboard';
 import { VendorList } from './components/VendorList';
 import { ScorecardDetail } from './components/ScorecardDetail';
 import { Vendor, RiskLevel, VendorStatus } from './types';
+import { QAApprovals } from './components/QAApprovals';
+import { RiskAnalytics } from './components/RiskAnalytics';
+import { NewVendorModal } from './components/NewVendorModal';
 
 // Mock Data
 const MOCK_VENDORS: Vendor[] = [
@@ -57,6 +60,7 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
   const [vendors, setVendors] = useState<Vendor[]>(MOCK_VENDORS);
+  const [isNewVendorModalOpen, setIsNewVendorModalOpen] = useState(false);
 
   const handleVendorSelect = (vendor: Vendor) => {
     setSelectedVendor(vendor);
@@ -68,44 +72,37 @@ const App: React.FC = () => {
     setSelectedVendor(updatedVendor);
   };
 
+  const handleAddVendor = (newVendor: Vendor) => {
+    setVendors(prev => [...prev, newVendor]);
+  };
+
   const renderContent = () => {
     if (selectedVendor) {
       return (
-        <ScorecardDetail 
-          vendor={selectedVendor} 
+        <ScorecardDetail
+          vendor={selectedVendor}
           onBack={() => setSelectedVendor(null)}
           onUpdateVendor={handleUpdateVendor}
         />
       );
     }
-
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard vendors={vendors} />;
+        return <Dashboard vendors={vendors} onNavigate={setActiveTab} />;
       case 'vendors':
-        return <VendorList vendors={vendors} onSelectVendor={handleVendorSelect} />;
+        return (
+          <VendorList
+            vendors={vendors}
+            onSelectVendor={handleVendorSelect}
+            onAddVendor={() => setIsNewVendorModalOpen(true)}
+          />
+        );
       case 'qa':
-        return (
-          <div className="text-center py-20 animate-fade-in">
-             <h2 className="text-2xl font-primary text-text-secondary">QA Workflow Module</h2>
-             <p className="text-sm text-text-secondary mt-2">Filter vendors by 'Pending QA' status to begin review.</p>
-             <button 
-               onClick={() => setActiveTab('vendors')}
-               className="mt-4 text-primary hover:underline"
-             >
-               Go to Vendor List
-             </button>
-          </div>
-        );
+        return <QAApprovals vendors={vendors} onUpdateVendor={handleUpdateVendor} />;
       case 'analytics':
-        return (
-          <div className="text-center py-20 animate-fade-in">
-             <h2 className="text-2xl font-primary text-text-secondary">Global Risk Analytics</h2>
-             <p className="text-sm text-text-secondary mt-2">Advanced D3/Recharts visualizations for portfolio-wide risk.</p>
-          </div>
-        );
+        return <RiskAnalytics vendors={vendors} />;
       default:
-        return <Dashboard vendors={vendors} />;
+        return <Dashboard vendors={vendors} onNavigate={setActiveTab} />;
     }
   };
 
@@ -115,16 +112,22 @@ const App: React.FC = () => {
         setActiveTab(tab);
         setSelectedVendor(null);
       }} />
-      
+
       <main className="md:ml-64 p-4 md:p-8 min-h-screen relative overflow-hidden">
         {/* Ambient background glows */}
         <div className="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
         <div className="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
-           {renderContent()}
+          {renderContent()}
         </div>
       </main>
+
+      <NewVendorModal
+        isOpen={isNewVendorModalOpen}
+        onClose={() => setIsNewVendorModalOpen(false)}
+        onSave={handleAddVendor}
+      />
     </div>
   );
 };
